@@ -1,0 +1,2 @@
+# PortageUpdatePackageChecker
+インストール済みパッケージに更新が必要な新しいパッケージがリリースされている場合にSlackへ通知するスクリプト
