@@ -1,5 +1,7 @@
 #!/bin/bash -ue
+cd "$(dirname $0)"
 
+# Settings
 API='https://slack.com/api/chat.postMessage'
 TOKEN="$(cat .token)"
 CHANNEL="$(cat .channel)"
@@ -8,7 +10,6 @@ AUTH="Authorization: Bearer ${TOKEN}"
 OLD_FILE='old_result.txt'
 NEW_FILE='new_result.txt'
 DIFF_FILE='diff.txt'
-
 SUMMARY=$(emerge -pv -uDN --with-bdeps=y @world 2>&1 \
 	| grep -v -E "Calculating dependencies.*done!" \
 	| tee "${NEW_FILE}" \
