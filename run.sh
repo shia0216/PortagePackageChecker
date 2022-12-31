@@ -10,6 +10,8 @@ AUTH="Authorization: Bearer ${TOKEN}"
 OLD_FILE='old_result.txt'
 NEW_FILE='new_result.txt'
 DIFF_FILE='diff.txt'
+
+# meke a new updatable package list file and get summary message
 SUMMARY=$(emerge -pv -uDN --with-bdeps=y @world 2>&1 \
 	| grep -v -E "Calculating dependencies.*done!" \
 	| tee "${NEW_FILE}" \
@@ -17,6 +19,8 @@ SUMMARY=$(emerge -pv -uDN --with-bdeps=y @world 2>&1 \
 )
 
 # Post a updatable package summary, and store the post message ts
+test -f ${OLD_FILE} || touch ${OLD_FILE}
+
 THREAD=$(grep -q 'Total: 0 packages, Size of downloads: 0 KiB' "${NEW_FILE}" \
 	|| diff -U 0 "${OLD_FILE}" "${NEW_FILE}" >${DIFF_FILE} \
 	|| curl -sS -X POST -H "${HEADER}" -H "${AUTH}" "${API}" \
