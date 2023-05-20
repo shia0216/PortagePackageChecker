@@ -13,7 +13,7 @@ DIFF_FILE='diff.txt'
 
 # meke a new updatable package list file and get summary message
 SUMMARY=$(emerge -pv -uDN --with-bdeps=y @world 2>&1 \
-	| grep -v -E "Calculating dependencies \.+ done" \
+	| grep -v -E "Calculating dependencies .+ done" \
 	| grep -v -E "Dependency resolution took [0-9]+\.[0-9]+ s" \
 	| tee "${NEW_FILE}" \
 	| grep 'Total'
